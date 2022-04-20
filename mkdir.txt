@@ -1,3 +1,2 @@
-workon faceweb
-อันเก่า tensorflow == 1.13.1
-อันใหม่ temsorflow == 2.6.2
+workon login
+
