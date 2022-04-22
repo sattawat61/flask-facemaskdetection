@@ -53,18 +53,18 @@ def stream():
             cv2.rectangle(frame, (startX, startY - 60), (endX, startY), color, -1)
             cv2.putText(frame, label, (startX + 10, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 255), 2)
             ###ถ่ายรูป
-            cv2.imwrite(filename='saved_img.jpg', img=frame)
+            # cv2.imwrite(filename='saved_img.jpg', img=frame)
             ###แปลงเพื่อไปแสดงหน้าเว็บ
-        return cv2.imencode('.jpg', frame)[1].tobytes()
-        if ret == True:
-            out.write(frame)
-        else:
-            pass
+        # return cv2.imencode('.jpg', frame)[1].tobytes()
+        # if ret == True:
+        #     out.write(frame)
+        # else:
+        #     pass
 
         cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
         cv2.resizeWindow('Video', 800, 600)
         
-        # cv2.imshow('Video', frame)
+        cv2.imshow('Video', frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
