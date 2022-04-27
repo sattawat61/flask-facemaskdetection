@@ -1,9 +1,11 @@
 from flask import Blueprint,render_template,request,redirect,url_for,session
+# import pymysql
 import pymysql
 from config import *
 import os
 
-con = pymysql.connect(HOST,USER,PASS,DATABASE)
+# con = pymysql.connect(HOST,USER,PASS,DATABASE)
+# con = pymysql.connect(HOST,USER,PASS,DATABASE)
 member = Blueprint('member',__name__)
 
 @member.route("/showdatamembersomeone",methods=["POST"])
@@ -91,6 +93,10 @@ def Delmember():
 @member.route("/adddatamember")
 def Adddatamember():
     return render_template("adddatamember.html",headername="เพิ่มข้อมูลสมาชิก")
+
+@member.route("/report")
+def report():
+    return render_template("report.html",headername="เพิ่มข้อมูลสมาชิก")
 
 @member.route("/adddata",methods=["POST"])
 def Adddata():

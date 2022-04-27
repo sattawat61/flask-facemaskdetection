@@ -55,19 +55,19 @@ def stream():
             ###ถ่ายรูป
             # cv2.imwrite(filename='saved_img.jpg', img=frame)
             ###แปลงเพื่อไปแสดงหน้าเว็บ
-        # return cv2.imencode('.jpg', frame)[1].tobytes()
+        return cv2.imencode('.jpg', frame)[1].tobytes()
         # if ret == True:
         #     out.write(frame)
         # else:
         #     pass
 
-        cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
-        cv2.resizeWindow('Video', 800, 600)
+        # cv2.namedWindow('Video', cv2.WINDOW_NORMAL)
+        # cv2.resizeWindow('Video', 800, 600)
         
-        cv2.imshow('Video', frame)
+        # cv2.imshow('Video', frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        # if cv2.waitKey(1) & 0xFF == ord('q'):
+        #     break
 
     cap.release()
     out.release()

@@ -1,2 +1,2 @@
 workon login
-
+conda activate face-api-flask

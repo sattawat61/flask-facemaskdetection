@@ -1,5 +1,8 @@
 from flask import Blueprint,render_template,request,redirect,url_for,session,flash
 import pymysql
+# from config import *
+
+# con = pymysql.connect(HOST,USER,PASS,DATABASE)
 from config import *
 
 con = pymysql.connect(HOST,USER,PASS,DATABASE)
