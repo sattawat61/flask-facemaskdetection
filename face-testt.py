@@ -1,3 +1,4 @@
+#ตัวทอดลอง face-recognition 28/4/2022!!!!!!!!!
 import imp
 from PIL import Image, ImageDraw
 import face_recognition
