@@ -16,7 +16,6 @@ known_faces = [
 # known_faces=[]
 ROOT_FOLDER ="D:/project/test1/Flaskmyweb/trainpeople"
 
-
 known_faces_names = []
 known_faces_encodings = []
 for path in glob.iglob(os.path.join(ROOT_FOLDER, "**", "*.jpg")):
