@@ -1,3 +1,4 @@
+from re import X
 from flask import Blueprint,render_template,request,redirect,url_for,session
 # import pymysql
 import pymysql
@@ -44,14 +45,24 @@ def report():
         return render_template('login.html',headername="Login เข้าใช้งานระบบ")
     with con:
         cur = con.cursor()
-        sql = "SELECT * FROM tb_member"
+        sql = "SELECT * FROM tb_memberallow"
         cur.execute(sql)
         rows = cur.fetchall()
         return render_template("report.html",headername="ข้อมูลสมาชิก",datas=rows)
 
+
 @member.route("/createreport")
-def creatreport():
-    datatext = []
+def Createreport():
+    if "username" not in session:
+        return render_template('login.html',headername="Login เข้าใช้งานระบบ")
+    with con:
+        cur = con.cursor()
+        sql = "SELECT * FROM tb_memberallow"
+        cur.execute(sql)
+        rows = cur.fetchall()
+        datatext = []
+        # for mem_id in rows:
+        #     print(mem_id)
     # print('This is standard output', file=sys.stdout)
     # print('Hello world!', file=sys.stderr)
         # print('This is standard output', file=sys.stdout)
@@ -70,6 +81,7 @@ def creatreport():
         # cv2.imshow("img",img)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
+
         for face_encoding , face_location in zip(face_encodings, face_locations):
             face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)
             best_match_index = np.argmin(face_distances)
@@ -86,14 +98,36 @@ def creatreport():
                 top, right, bottom, left = face_location
                 draw.rectangle([left,top,right,bottom])
                 draw.text((left,top), name)
-        datatext.append(name)
-    print(datatext, file=sys.stdout)
-            # print(face_distances)
-            # print(name)
-    # print(name)
-    # image.show()
+            datatext.append(name)
+            # print (datatext,file=sys.stdout)
+            with con:
+                cur = con.cursor()
+                # sql = "INSERT INTO tb_memberallow (mem_fname) VALUES (%s)"
+                sql = "SELECT * FROM tb_memberallow"
+                cur.execute(sql)
+                rows = cur.fetchall()
+         
+    # print (datatext,file=sys.stdout)
+         
+    for mem_id in range(len(datatext)):
+                    # datatext.append(name)
+                        # print(mem_id,name,count)
+        sql = "UPDATE tb_memberallow SET mem_fname = (%s) WHERE mem_id = (%s)"
+        cur.execute(sql,(datatext[mem_id],mem_id))
+        con.commit()
+            
+                    # ต้องทำloop เพื่อนำตัวแปรcount มา+เพิ่มเพื่อใส่ใน mem_id ตอนนี้ยังเอา array ตัวสุดท้ายไปใส่ในmem_fnameอยู่XXXX
+        print (datatext[mem_id],file=sys.stdout)
+    print (datatext,file=sys.stdout)
+            # con.commit()
+            
 
-    return render_template("report.html",headername="ข้อมูลสมาชิก")
+            
+                # print(face_distances)
+                # print(name)
+        # print(name)
+        # image.show()
+    return render_template("report.html",headername="ข้อมูลสมาชิก",datas=rows)
 
 
 @member.route("/showwithdate",methods=["POST"])
