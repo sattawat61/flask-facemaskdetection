@@ -28,6 +28,19 @@ def Showsomeone():
             rows = cur.fetchall()
             return render_template("showdatamebersomeone.html",headername="ข้อมูลสมาชิก",datas=rows)
 
+@member.route("/showdatamembersomeone2",methods=["POST"])
+def Showsomeone2():
+    if "username" not in session:
+        return render_template('login.html',headername="Login เข้าใช้งานระบบ")
+    if request.method == "POST":
+        id = request.form["id"]
+        with  con:
+            cur = con.cursor()
+            sql = "SELECT * FROM tb_memberallow where mem_id = %s"
+            cur.execute(sql,(id))
+            rows = cur.fetchall()
+            return render_template("showdatamebersomeone2.html",headername="ข้อมูลสมาชิก",datas=rows)
+
 @member.route("/showmember")
 def Showdatamember():
     if "username" not in session:
@@ -38,6 +51,17 @@ def Showdatamember():
         cur.execute(sql)
         rows = cur.fetchall()
         return render_template("Showdatamember copy.html",headername="ข้อมูลสมาชิก",datas=rows)
+
+@member.route("/showmember2")
+def Showdatamember2():
+    if "username" not in session:
+        return render_template('login.html',headername="Login เข้าใช้งานระบบ")
+    with con:
+        cur = con.cursor()
+        sql = "SELECT * FROM tb_memberallow"
+        cur.execute(sql)
+        rows = cur.fetchall()
+        return render_template("Showdatamember copy 2.html",headername="ข้อมูลสมาชิก",datas=rows)
 
 @member.route("/report")
 def report():
@@ -67,7 +91,7 @@ def Createreport():
     # print('Hello world!', file=sys.stderr)
         # print('This is standard output', file=sys.stdout)
     # known_face_names, known_face_encodings = pickle.load(open('faces.p','rb'))
-    path = glob.glob("D:/project/test1/Flaskmyweb/testpeople/*.jpg")
+    path = glob.glob("D:/project/test1/Flaskmyweb/static/testpeople/*.jpg")
     for file in path:
         known_face_names, known_face_encodings = pickle.load(open('faces.p','rb'))
         
@@ -113,7 +137,7 @@ def Createreport():
                     # datatext.append(name)
                         # print(mem_id,name,count)
         sql = "UPDATE tb_memberallow SET mem_fname = (%s) WHERE mem_id = (%s)"
-        cur.execute(sql,(datatext[mem_id],mem_id))
+        cur.execute(sql,(datatext[mem_id],mem_id+1))
         con.commit()
             
                     # ต้องทำloop เพื่อนำตัวแปรcount มา+เพิ่มเพื่อใส่ใน mem_id ตอนนี้ยังเอา array ตัวสุดท้ายไปใส่ในmem_fnameอยู่XXXX
@@ -140,6 +164,20 @@ def Showwithdate():
         with  con:
             cur = con.cursor()
             sql = "SELECT * FROM tb_member where mem_datetimestamp between %s and %s "
+            cur.execute(sql,(dtstart,dtend))
+            rows = cur.fetchall()
+            return render_template("Showdatamember.html",headername="ข้อมูลสมาชิก",datas=rows)
+
+@member.route("/showwithdate2",methods=["POST"])
+def Showwithdate2():
+    if "username" not in session:
+        return render_template('login.html',headername="Login เข้าใช้งานระบบ")
+    if request.method == "POST":
+        dtstart = request.form['dtstart']
+        dtend = request.form['dtend']
+        with  con:
+            cur = con.cursor()
+            sql = "SELECT * FROM tb_memberallow where mem_date between %s and %s "
             cur.execute(sql,(dtstart,dtend))
             rows = cur.fetchall()
             return render_template("Showdatamember.html",headername="ข้อมูลสมาชิก",datas=rows)

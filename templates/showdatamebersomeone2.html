@@ -90,7 +90,7 @@
         <h2>IMAGE</h2>
         <h5>แสดงรูปภาพ</h5>
         {% for row in datas %}
-          <img id="blah" src="{{row.5}}" alt="" class="img-thumbnail" />
+          <img id="blah" src="{{row.4}}" alt="" class="img-thumbnail" />
         {% endfor %}
       </div>
     </div>
@@ -101,7 +101,7 @@
     <h5 align="right">ยินดีต้อนรับคุณ {{ session['Firstname'] }} {{ session['Firstname'] }}</h5>
     <h5 align ="right"><a href="/logout">Logout</a></h5>
 
-    <form action="{{ url_for ('member.Showwithdate2') }}" method="POST">
+    <form action="{{ url_for ('member.Showwithdate') }}" method="POST">
       <div class="form-row align-item-center">
       <div class="col">
         <input type="datetime-local" class="form-control" name='dtstart' required>
@@ -126,8 +126,8 @@
           <th scope="col">ID</th>
           <th scope="col">Firstname</th>
           <th scope="col">Lastname</th>
-          <th scope="col">Email</th>
           <th scope="col">Timestamp</th>
+          <th scope="col">Picture</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -140,7 +140,6 @@
           <td>{{ row.3 }}</td>
           <td>{{ row.4 }}</td>
           <td>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalshow{{row.0}}">เเสดงข้อมูล</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal{{row.0}}">แก้ไข</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModaledit{{row.0}}">ลบ</button>
           </td>
@@ -203,34 +202,10 @@
             </div>
           </div>
         </div>
-        <!-- แสดงบางคน -->
-        <div class="modal fade" id="exampleModalshow{{row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">แสดงข้อมูล</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form action="{{ url_for('member.Showsomeone2') }}" method="POST">
-                <div class="modal-body">
-                  <h3>คุณต้องการเเสดงข้อมูลของ {{ row.1 }} {{ row.2 }} หรือไม่</h3>
-                </div>
-                <input type="hidden" name="id" value="{{row.0}}">
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                  <button type="submit" class="btn btn-primary">ยืนยันการแสดงข้อมูล</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
         {% endfor %}
       </tbody>
     </table>
     <a href="/adddatamember" class="btn btn-success">เพิ่มข้อมูล</a>
-    <a href="/createreport" class="btn btn-info">สร้างreport</a>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
