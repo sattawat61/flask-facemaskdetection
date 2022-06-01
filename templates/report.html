@@ -124,10 +124,9 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Firstname</th>
-          <th scope="col">Lastname</th>
-          <th scope="col">Email</th>
+          <th scope="col">Name</th>
           <th scope="col">Timestamp</th>
+          <th scope="col">image</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -138,7 +137,6 @@
           <td>{{ row.1 }}</td>
           <td>{{ row.2 }}</td>
           <td>{{ row.3 }}</td>
-          <td>{{ row.4 }}</td>
           <td>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalshow{{row.0}}">เเสดงข้อมูล</button>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal{{row.0}}">แก้ไข</button>

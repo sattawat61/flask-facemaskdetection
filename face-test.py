@@ -4,12 +4,12 @@ import face_recognition
 import numpy as np
 import pickle
 
-known_face_names, known_face_encodings = pickle.load(open('faces.p','rb'))
+known_face_names, known_face_encodings = pickle.load(open('faces2.p','rb'))
 
 print(known_face_names)
 # print(known_face_encodings)
 
-image = Image.open('testpeople/rose.jpg')
+image = Image.open('D:/project/test1/Flaskmyweb/static/testpeople/1.jpg')
 
 face_locations = face_recognition.face_locations(np.array(image))
 face_encodings = face_recognition.face_encodings(np.array(image), face_locations)

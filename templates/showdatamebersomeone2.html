@@ -90,7 +90,7 @@
         <h2>IMAGE</h2>
         <h5>แสดงรูปภาพ</h5>
         {% for row in datas %}
-          <img id="blah" src="{{row.4}}" alt="" class="img-thumbnail" />
+          <img id="blah" src="{{row.3}}" alt="" class="img-thumbnail" />
         {% endfor %}
       </div>
     </div>
@@ -124,8 +124,7 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Firstname</th>
-          <th scope="col">Lastname</th>
+          <th scope="col">Name</th>
           <th scope="col">Timestamp</th>
           <th scope="col">Picture</th>
           <th>Action</th>
@@ -138,7 +137,6 @@
           <td>{{ row.1 }}</td>
           <td>{{ row.2 }}</td>
           <td>{{ row.3 }}</td>
-          <td>{{ row.4 }}</td>
           <td>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal{{row.0}}">แก้ไข</button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModaledit{{row.0}}">ลบ</button>

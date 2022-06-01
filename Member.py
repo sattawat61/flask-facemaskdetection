@@ -123,7 +123,7 @@ def Createreport():
                 draw.rectangle([left,top,right,bottom])
                 draw.text((left,top), name)
             datatext.append(name)
-            # print (datatext,file=sys.stdout)
+           
             with con:
                 cur = con.cursor()
                 # sql = "INSERT INTO tb_memberallow (mem_fname) VALUES (%s)"
@@ -141,7 +141,7 @@ def Createreport():
         con.commit()
             
                     # ต้องทำloop เพื่อนำตัวแปรcount มา+เพิ่มเพื่อใส่ใน mem_id ตอนนี้ยังเอา array ตัวสุดท้ายไปใส่ในmem_fnameอยู่XXXX
-        print (datatext[mem_id],file=sys.stdout)
+        # print (datatext[mem_id],file=sys.stdout)
     print (datatext,file=sys.stdout)
             # con.commit()
             
