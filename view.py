@@ -7,12 +7,15 @@ from Member import *
 from User import *
 from datetime import timedelta
 ###############
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+
 from facemaskdetection_2 import stream
 
 
 app = Flask(__name__)
 camera = cv2.VideoCapture(0)
-
 
 def gen_frame():
     """Video streaming generator function."""

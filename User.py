@@ -29,7 +29,7 @@ def Checklogin():
         sql = "SELECT * FROM tb_user WHERE usr_username = %s AND usr_password = %s AND usr_status=1 "
         cur.execute(sql,(username,password))
         rows = cur.fetchall()
-        print("จำนวนเเถวในการเจอข้แมูล = "+ str(len(rows)))
+        print("จำนวนเเถวในการเจอข้อมูล = "+ str(len(rows)))
         if len(rows) > 0:
             session['username'] = username
             session['Firstname'] = rows[0][1]
@@ -69,5 +69,5 @@ def Adduser():
             sql = "insert into tb_user (usr_fname,usr_lname,usr_username,usr_password) values (%s,%s,%s,%s)"
             cur.execute(sql,(fname,lname,username,password))
             con.commit()
-            flash("สมัครสมาชิกสำเร็จรอผู้ดูเเลตรวงสอบ")
+            flash("สมัครสมาชิกสำเร็จรอผู้ดูเเลตรวจสอบ")
             return render_template('login.html',headername="สมัครสมาชิก",status="wait")

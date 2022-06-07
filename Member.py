@@ -105,7 +105,6 @@ def Createreport():
         # cv2.imshow("img",img)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
-
         for face_encoding , face_location in zip(face_encodings, face_locations):
             face_distances = face_recognition.face_distance(known_face_encodings,face_encoding)
             best_match_index = np.argmin(face_distances)
@@ -142,7 +141,7 @@ def Createreport():
             
                     # ต้องทำloop เพื่อนำตัวแปรcount มา+เพิ่มเพื่อใส่ใน mem_id ตอนนี้ยังเอา array ตัวสุดท้ายไปใส่ในmem_fnameอยู่XXXX
         # print (datatext[mem_id],file=sys.stdout)
-    print (datatext,file=sys.stdout)
+    # print (datatext,file=sys.stdout)
             # con.commit()
             
 
@@ -152,6 +151,54 @@ def Createreport():
         # print(name)
         # image.show()
     return render_template("report.html",headername="ข้อมูลสมาชิก",datas=rows)
+
+@member.route("/adddatamember2")
+def Adddatamember2():
+    path = glob.glob("static/testpeople/*.jpg")
+    datatextpic = []
+    if "username" not in session:
+        return render_template('login.html',headername="Login เข้าใช้งานระบบ")
+    for filename in path:
+        # f = os.path.join(directory, filename)
+        datatextpic.append(filename)
+        # print (filename,file=sys.stdout)
+        
+    for mem_id in range(len(datatextpic)):
+        
+        with con:
+            cur = con.cursor()
+            sql = "insert into tb2 (mem_id) VALUES (%s)"
+            cur.execute(sql,(mem_id+1))
+            con.commit()
+            print (mem_id,file=sys.stdout)
+    for mem_id in range(len(datatextpic)):
+                                # datatext.append(name)
+                                    # print(mem_id,name,count)
+        with con:
+            cur = con.cursor()
+            sql = "UPDATE tb2 SET mem_pic = (%s) WHERE mem_id = (%s)"
+            cur.execute(sql,(datatextpic[mem_id],mem_id+1))
+            con.commit()
+            print (datatextpic,file=sys.stdout)
+# #     if request.method == "POST":
+# #         file = request.files['files']
+# #         upload_folder = 'static/testpeople/nomask1.jpg'
+# #         app_folder = os.path.dirname(__file__)
+# #         img_folder = os.path.join(app_folder,upload_folder)
+# #         file.save(os.path.join(img_folder,file.filename))
+# #         path = upload_folder + "/" + file.filename
+
+# #         # fname = request.form["fname"]
+# #         # lname = request.form["lname"]
+# #         # email = request.form["email"]
+#     path = "static\testpeople\1.jpg"
+#     with con :
+#             cur = con.cursor()
+#             sql = "insert into tb_member (mem_fname,mem_lname,mem_email,mem_pic) VALUES (%s,%s,%s,%s)"
+#             cur.execute(sql,(path))
+#             con.commit()
+    return render_template("report.html")
+    
 
 
 @member.route("/showwithdate",methods=["POST"])
@@ -225,7 +272,7 @@ def Delmember():
             cur.execute(sql,(id))
             con.commit()
             return redirect(url_for('member.Showdatamember'))
-
+    
 @member.route("/adddatamember")
 def Adddatamember():
     return render_template("adddatamember.html",headername="เพิ่มข้อมูลสมาชิก")
