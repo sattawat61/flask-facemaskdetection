@@ -2,14 +2,14 @@ from flask import Flask,render_template,Response
 import cv2
 import tensorflow as tf
 import numpy as np
-# from Member import *
+
 from Member import *
 from User import *
 from datetime import timedelta
 ###############
 
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 from facemaskdetection_2 import stream
 
@@ -21,8 +21,8 @@ def gen_frame():
     """Video streaming generator function."""
     while True:
         frame = stream()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concate frame one by one and show result
+        # yield (b'--frame\r\n'
+        #        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concate frame one by one and show result
 
 @app.route("/")
 def Index():

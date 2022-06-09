@@ -1,7 +1,9 @@
 from re import X
+from select import select
 from flask import Blueprint,render_template,request,redirect,url_for,session
 # import pymysql
 import pymysql
+# from config import *
 from config import *
 import os
 import sys
@@ -13,6 +15,8 @@ import pickle
 import numpy as np
 
 con = pymysql.connect(HOST,USER,PASS,DATABASE)
+# con = pymysql.connect(HOST,USER,PASS,DATABASE)
+# con = pymysql.connect(HOST,USER,PASS,DATABASE)
 member = Blueprint('member',__name__)
 
 @member.route("/showdatamembersomeone",methods=["POST"])
@@ -36,7 +40,7 @@ def Showsomeone2():
         id = request.form["id"]
         with  con:
             cur = con.cursor()
-            sql = "SELECT * FROM tb_memberallow where mem_id = %s"
+            sql = "SELECT * FROM tb_memberallow2 where mem_id = %s"
             cur.execute(sql,(id))
             rows = cur.fetchall()
             return render_template("showdatamebersomeone2.html",headername="ข้อมูลสมาชิก",datas=rows)
@@ -58,7 +62,7 @@ def Showdatamember2():
         return render_template('login.html',headername="Login เข้าใช้งานระบบ")
     with con:
         cur = con.cursor()
-        sql = "SELECT * FROM tb_memberallow"
+        sql = "SELECT * FROM tb_memberallow2"
         cur.execute(sql)
         rows = cur.fetchall()
         return render_template("Showdatamember copy 2.html",headername="ข้อมูลสมาชิก",datas=rows)
@@ -69,7 +73,7 @@ def report():
         return render_template('login.html',headername="Login เข้าใช้งานระบบ")
     with con:
         cur = con.cursor()
-        sql = "SELECT * FROM tb_memberallow"
+        sql = "SELECT * FROM tb_memberallow2"
         cur.execute(sql)
         rows = cur.fetchall()
         return render_template("report.html",headername="ข้อมูลสมาชิก",datas=rows)
@@ -81,7 +85,7 @@ def Createreport():
         return render_template('login.html',headername="Login เข้าใช้งานระบบ")
     with con:
         cur = con.cursor()
-        sql = "SELECT * FROM tb_memberallow"
+        sql = "SELECT * FROM tb_memberallow2"
         cur.execute(sql)
         rows = cur.fetchall()
         datatext = []
@@ -126,7 +130,7 @@ def Createreport():
             with con:
                 cur = con.cursor()
                 # sql = "INSERT INTO tb_memberallow (mem_fname) VALUES (%s)"
-                sql = "SELECT * FROM tb_memberallow"
+                sql = "SELECT * FROM tb_memberallow2"
                 cur.execute(sql)
                 rows = cur.fetchall()
          
@@ -135,7 +139,7 @@ def Createreport():
     for mem_id in range(len(datatext)):
                     # datatext.append(name)
                         # print(mem_id,name,count)
-        sql = "UPDATE tb_memberallow SET mem_fname = (%s) WHERE mem_id = (%s)"
+        sql = "UPDATE tb_memberallow2 SET mem_fname = (%s) WHERE mem_id = (%s)"
         cur.execute(sql,(datatext[mem_id],mem_id+1))
         con.commit()
             
@@ -166,9 +170,12 @@ def Adddatamember2():
     for mem_id in range(len(datatextpic)):
         
         with con:
+            name = 0
             cur = con.cursor()
-            sql = "insert into tb2 (mem_id) VALUES (%s)"
-            cur.execute(sql,(mem_id+1))
+            # sql = "select * from tb2"
+            # # if (mem_id!=mem_id):
+            sql = "insert into tb_memberallow2 (mem_id,mem_fname) VALUES (%s,%s)"
+            cur.execute(sql,(mem_id+1,name))
             con.commit()
             print (mem_id,file=sys.stdout)
     for mem_id in range(len(datatextpic)):
@@ -176,7 +183,7 @@ def Adddatamember2():
                                     # print(mem_id,name,count)
         with con:
             cur = con.cursor()
-            sql = "UPDATE tb2 SET mem_pic = (%s) WHERE mem_id = (%s)"
+            sql = "UPDATE tb_memberallow2 SET mem_pic = (%s) WHERE mem_id = (%s)"
             cur.execute(sql,(datatextpic[mem_id],mem_id+1))
             con.commit()
             print (datatextpic,file=sys.stdout)
@@ -224,7 +231,7 @@ def Showwithdate2():
         dtend = request.form['dtend']
         with  con:
             cur = con.cursor()
-            sql = "SELECT * FROM tb_memberallow where mem_date between %s and %s "
+            sql = "SELECT * FROM tb_memberallow2 where mem_date between %s and %s "
             cur.execute(sql,(dtstart,dtend))
             rows = cur.fetchall()
             return render_template("Showdatamember.html",headername="ข้อมูลสมาชิก",datas=rows)
